@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    //단위변환(unit conversion)
+
+    function Btn({text, changeValue}){ 
+        console.log(text, "was rendered")
+        //리엑트js에서 컴포넌트가 상태를 바꾸면 다시 render함
+        //때문에 continue 버튼도 다시 렌더링 되는 것(확인하는 console)
+        //부모 컴포넌트가 state 변경. > 모든 것이 리렌더링됨
+            //메모할 수 있음:(리액트에게 명령, memorize) 
+            //props가 변경되지 않는 특정 컴포넌트 리렌더링 거부
+
+        return <button 
+        onClick={changeValue}
+        style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+        }}>
+           {text}
+        </button>
+    }
+    //이벤트리스너 onClick 시 changeValue 인자 불러옴
+    //이벤트리스너는 html button태그에 달아야 한다!!
+    //인자들의 자유로운 사용 가능
+
+    const MemorizedBtn = React.memo(Btn);
+    //memorized된 버전의 Btn
+    //첫 화면에서 '버튼 눌렀을때' continue버튼은 리렌더링x
+
+    function App(){
+        const [value, setValue] = React.useState("Save Changes");
+        const changeValue = () => setValue("Revert Changes");
+        //리렌더링 > memorize하지 않으면 모든 자식컴포넌트가 리렌더링됨
+        //memorize 하지 않으면
+        //추후 자식 컴포넌트 많은 어플리케이션이 느려지는 원인이 될 수 있다.
+
+        return(
+            <div>
+                <MemorizedBtn text={value} changeValue={changeValue}/>
+                <MemorizedBtn text="Continue"/>
+             </div>
+        );
+             //html 태그에 onClick 넣을 때> 이벤트 리스너
+             //내가 만든 컴포넌트 안에 있는 onClick = props(임의 지정 가능한 이름!)
+                //리액트js는 이벤트리스너 주는 게 아님!
+                //따라서 changeValue={changeValue} 의미:
+                //changeValue라는 인자에 changeValue 함수 넣은 것
+           
+                //style역시 아래 리액트js안에서 직접 줄 수 없다
+                //style={{...}} > 불가
+                //인자(props) 만들어서(text처럼) 따로 스타일 컴포넌트 만들어 적용해야함
+    }
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root); 
+</script>
+
+</html>

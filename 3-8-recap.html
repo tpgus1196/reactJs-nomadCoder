@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    //단위변환(unit conversion)
+    
+
+    function App(){
+        const [amount, setAmount] = React.useState(0); 
+        const [inverted, setInverted] = React.useState(false); 
+                
+        
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        };
+        
+        const reset = () => setAmount(0);
+        const onFlip = () => {
+            reset();
+            setInverted((current) => !current);
+           
+        
+        };
+            
+
+
+        return(
+            <div>
+             <h1 className="hi">Super Converter</h1>
+             <div>
+                <label htmlFor="minutes">Minutes</label>
+             <input 
+                value={inverted ? amount * 60 : amount}
+                id="minutes" 
+                placeholder="Minutes" 
+                type="number"
+                onChange={onChange}
+                disabled={inverted === true}
+             />
+            </div>
+             
+            <div>
+             <label htmlFor="hours">Hours</label>
+             <input 
+                value={inverted ? amount : Math.round(amount / 60)} 
+                id="hours" 
+                placeholder="Hours" 
+                type="number" 
+                disabled={inverted === false}
+                onChange={onChange}
+             />
+            </div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+            
+            </div>
+        );
+        
+    }
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root); 
+     
+    //flipped === true > minutes input은 disabled
+    //시에서 분으로 변환 중   
+
+    //<button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
+    //button 상태 변환 invert 된 상태에서는 돌아가기, 반대는 invert하기
+</script>
+
+</html>

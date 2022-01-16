@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+    <!--리렌더링 유발 위해 리액트 js가 가지고 있는 기능 학습-->
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    const root = document.getElementById("root");
+
+    function App(){
+        //리액트의 state 기능 활용
+        
+        const [counter, modifier] = React.useState(); //배열 값 가져오는 좋은 방법
+        //const data = React.useState();
+        //확인 작업: console.log(data); > data 검색 시
+                //[undefined, function] 배열 얻음 
+                //React.useState() 는 배열이다!!
+                //undefined에는 useState()의 괄호에 넣는 값이 나옴
+                //= [초기값, 이 값을 바꿀 수 있는 함수]
+                //아래 역할 대신
+                //let counter=0; 
+                //function countUP(){}
+       
+        //배열 값 가져오기 방법1(구림)
+        //const counter = data[0];
+        //const modifier = data[1];
+
+        return(
+            <div>
+             <h3>Total clicks: {counter}</h3>
+             <button onClick={countUp}>Click me</button>
+            </div>
+        );
+    
+    }
+
+    ReactDOM.render(<App />, root); 
+     
+    
+</script>
+
+</html>

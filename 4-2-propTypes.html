@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<!-- prop type 에러 발생 방지 > prop type 구분 가능 -->
+
+<script type="text/babel">
+    //단위변환(unit conversion)
+    //컴포넌트가 많은 props 가질 때 실수, 오류 증가
+    //btn configuration(설정)
+        //user가 prop으로 fontSize전달 하도록 설정
+        //리액트js에게 props가 어떤 타입인지 알려줌
+               
+                        //이렇게 설정한 폰트사이즈 PROP는 CONTINUE버튼에만 적용된다
+    function Btn({text, fontSize =14}){ 
+        return <button 
+        style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize,
+        }}>
+           {text}
+        </button>
+    }
+
+    Btn.propTypes = {
+       text: PropTypes.string.isRequired,
+       fontSize: PropTypes.number,
+    }
+    function App(){
+
+        return(
+            <div>
+                <Btn text="Save Change" fontSize={18} />
+                <Btn text={"Continue"} />
+             </div>
+        );
+        //왜 text prop 넣는 방식이 두 Btn마다 다른가?
+    }
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root); 
+</script>
+
+</html>

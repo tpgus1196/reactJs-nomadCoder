@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+    <!-- 리렌더링 발생의 best way 가 아니다. -->
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    const root = document.getElementById("root");
+    let counter = 0;
+    //count 수를 올려주는 함수
+    function countUp(){
+        counter = counter +1;
+        render();
+    }
+    function render(){
+        ReactDOM.render(<Container />, root); 
+        //countUp 함수를 호출할때마다 ReactDOM 리랜더링
+    }
+
+    const Container = () => (
+    <div>
+        <h3>Total clicks: {counter}</h3>
+        <button onClick={countUp}>Click me</button>
+    </div>
+    );
+    //위 컴포넌트 생성과 같은 방법
+    // function Container() {
+    //     return <div>
+    //     <h3>Total clicks: {counter}</h3>
+    //     <button onClick={countUp}>Click me</button>
+    // </div>
+    // }
+
+
+    render();
+    //= ReactDOM.render(<Container />, root); 
+    
+    //처음 Container를 렌더링할때,h3 태그 내부의 counter는 0
+    //버튼에 eventListener(onClick) 달아주고 클릭 > counter 증가
+    //Container 리렌더링
+
+    //1회 렌더링 후 ui 업데이트 해야 화면에 변화 나오기 때문
+     
+    
+</script>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+    const root = document.getElementById("root");
+
+    //modifier의 필요성 학습
+    function App(){
+        //리액트의 state 기능 활용
+        const [counter, setCounter] = React.useState(0); 
+            //React.useState()함수는 counter 같은 데이터를 숫자형 데이터로 건네줌
+            //그리고 그 데이터를 변형할 함수도 제공
+        const onClick = () => {
+            setCounter(counter + 1);
+            //어떤 수를 입력해도 업데이트 명령 내림
+            //ReactDOM.render(<App />, root); 이 렌더링의 리렌더 명령
+        };
+        return(
+            <div>
+             <h3>Total clicks: {counter}</h3>
+             <button onClick={onClick}>Click me</button>
+            </div>
+        );
+    
+    }
+
+    ReactDOM.render(<App />, root); 
+     
+    
+</script>
+
+</html>
